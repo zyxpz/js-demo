@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tabs</title>
+  <link rel="stylesheet" href="./tabs.css">
+</head>
+<body>
+  <section class="tabs-warp">
+    <nav class="tabs-header">
+      <div class="tabs-nav-content">tabs 1</div>
+      <div class="tabs-nav-content">tabs 2</div>
+      <div class="tabs-nav-content">tabs 3</div>
+      <div class="tabs-nav-line"></div>
+    </nav>
+    <main class="tabs-main-box">
+      <div class="tabs-main">tabs main 1</div>
+      <div class="tabs-main">tabs main 2</div>
+      <div class="tabs-main">tabs main 3</div>
+    </main>
+  </section>
+  <script src="https://a.alipayobjects.com/anima-yocto/1.1.8/index.js"></script>
+  <script src="./tabs.js"></script>
+  <script>
+    const tabs = new Tabs({
+      warp: '.tabs-warp',
+      nav: '.tabs-header',
+      main: '.tabs-main-box',
+      navKey: 1,
+    });
+  </script>
+</body>
+</html>

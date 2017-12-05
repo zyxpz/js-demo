@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <section class="img-warp">
+    <div class="img-list">
+      <img src="https://gw.alipayobjects.com/zos/rmsportal/tmEJZiMWTUndXqFCNkrI.png"> 
+      <img src="https://gw.alipayobjects.com/zos/rmsportal/hTCDJJaFObYcQjyiEVZb.png"> 
+      <img src="https://gw.alipayobjects.com/zos/rmsportal/jFZvTvLWyNvUccFBNOQG.png"> 
+    </div>
+  </section>
+</body>
+<script src="https://a.alipayobjects.com/anima-yocto/1.1.8/index.js"></script>
+<script src="./touch.js"></script>
+<script>
+  const touch = new Touch({
+    element: '.img-warp',
+  });
+</script>
+</html>
