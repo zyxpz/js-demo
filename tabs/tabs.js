@@ -57,9 +57,9 @@ class Tabs {
 
       // 定位线的初始位置
       const $navLineInit = this.get('$nav').find('.tabs-nav-line'),
-        $lineWid = $navLineInit[0].offsetWidth,
+        $lineWid = $navChildren[0].offsetWidth,
         left = this.get('navKey') * $lineWid;
-      $navLineInit.css('left', left);
+      $navLineInit.css({'left': left, 'width': `${$lineWid}px`});
 
       // 点击事件
       this.handleNavClick();
