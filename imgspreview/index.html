@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>imgspreview</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./popup.css">
+  <script src="https://a.alipayobjects.com/anima-yocto/1.1.8/index.js"></script>
+  <script src="./index.js"></script>
+</head>
+
+<body>
+  <div class="content">
+    <div class="clearfix img-gather thumbs J-thumbs">
+      <a href="img/1.jpg" style="background-image:url(img/1.jpg)"></a>
+      <a href="img/2.jpg" style="background-image:url(img/2.jpg)"></a>
+      <a href="img/3.jpg" style="background-image:url(img/3.jpg)"></a>
+      <a href="img/4.jpg" style="background-image:url(img/4.jpg)"></a>
+    </div>
+  </div>
+  <script>
+    const imgSpreview = new ImgsPreview({
+      warp: '.content',
+      imgThumbs: '.J-thumbs a'
+    });
+  </script>
+</body>
+
+</html>
