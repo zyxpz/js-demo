@@ -64,3 +64,35 @@
   max-width: 100%;
   vertical-align: middle;
 }
+
+.prevArrow,
+.nextArrow {
+  border: none;
+  text-decoration: none;
+  background: url('./img/arrows.png') no-repeat;
+  opacity: .1;
+  cursor: pointer;
+  position: absolute;
+  width: 43px;
+  height: 58px;
+  top: 50%;
+  margin-top: -29px;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  z-index: 101;
+}
+
+.prevArrow:hover,
+.nextArrow:hover {
+  opacity: 1;
+}
+
+.prevArrow {
+  background-position: left top;
+  left: 40px;
+}
+
+.nextArrow {
+  background-position: right top;
+  right: 40px;
+}
