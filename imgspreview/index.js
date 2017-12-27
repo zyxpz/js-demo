@@ -12,7 +12,7 @@ class ImgsPreviewPopup {
     this.overlay.on('click', '.J-close', this.handleHide.bind(this));
   }
   handleCreatePopupHtml() {
-    this.overlay.appendTo('#popup');
+    this.overlay.appendTo('body');
     this.slider.appendTo(this.overlay);
     this.pageSpan.appendTo(this.overlay);
     this.close.appendTo(this.overlay);
