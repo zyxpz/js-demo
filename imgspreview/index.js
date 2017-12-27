@@ -63,6 +63,9 @@ class ImgsPreview extends ImgsPreviewPopup {
     this.warp.on('click', `${this.attrs.imgThumbs}`, this.querIndex.bind(this));
     this.overlay.on('click', '.prevArrow', this.prevArrowClick.bind(this));
     this.overlay.on('click', '.nextArrow', this.nextArrowClick.bind(this));
+    this.overlay.on('touchstart', '.imgs-slide img', this.touchStart.bind(this));
+
+    this.overlay.on('touchend', '.imgs-slide img', this.touchEnd.bind(this));
   }
 
   querIndex(e) {
@@ -105,6 +108,10 @@ class ImgsPreview extends ImgsPreviewPopup {
     this.index = this.index - 1;
     if (this.index < 0) {
       this.index = 0;
+      this.slider.addClass('leftSpring');
+      setTimeout(() => {
+        this.slider.removeClass('leftSpring');
+      }, 500);
       return;
     }
     this.imgShowIndex(this.index);
@@ -114,9 +121,35 @@ class ImgsPreview extends ImgsPreviewPopup {
     this.index = this.index + 1;
     if (this.index >= this.imgLen) {
       this.index = this.imgLen - 1;
+      this.slider.addClass('rightSpring');
+      setTimeout(() => {
+        this.slider.removeClass('rightSpring');
+      }, 200);
       return;
     }
     this.imgShowIndex(this.index);
+  }
+
+  touchStart(e) {
+    e.preventDefault();
+    this.startPag = e.touches[0].pageX;
+    this.slider.on('touchmove', this.touchMove.bind(this));
+  }
+
+  touchMove(e) {
+    e.preventDefault();
+    this.endPag = e.touches[0].pageX;
+    if (this.endPag - this.startPag > 10) {
+      this.slider.off('touchmove');
+      this.prevArrowClick();
+    } else if (this.endPag - this.startPag < -10) {
+      this.slider.off('touchmove');
+      this.nextArrowClick();
+    }
+  }
+
+  touchEnd() {
+    this.slider.off('touchmove');
   }
 
 
