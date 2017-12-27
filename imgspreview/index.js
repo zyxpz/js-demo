@@ -33,7 +33,6 @@ class ImgsPreview extends ImgsPreviewPopup {
     super();
     this.attrs = {
       warp: opts.warp,
-      sketchpad: opts.sketchpad,
       imgThumbs: opts.imgThumbs,
     }
     super.init();
@@ -93,7 +92,7 @@ class ImgsPreview extends ImgsPreviewPopup {
     this.slider.css({
       left: `${ - index * 100 }%`
     });
-    this.pageSpan.text(`${this.index + 1}/${this.imgLen}`);
+    this.pageSpan.text(`${index + 1}/${this.imgLen}`);
   }
 
   ifOnTouch() {
