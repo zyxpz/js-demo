@@ -24,7 +24,7 @@
   <br>
   <div class="container" onmousemove="debounce1(getUserAction, 1000)(event)"></div>
   <br>
-  <div class="container"></div>
+  <div class="container" onmousemove="debounce2(getUserAction, 1000, false)(event)"></div>
   <br>
   <div class="container"></div>
   <br>
@@ -33,22 +33,53 @@
 <script>
   let count = 1;
   let target;
+  let timeout;
+  /*
+   * 防抖的原理就是：你尽管触发事件，但是我一定在事件触发 n 秒后才执行，如果你在一个事件触发的 n 秒内又触发了这个事件，那我* 就以新的事件的时间为准，n 秒后才执行，总之，就是要等你触发完事件 n 秒内不再触发事件，我才执行，真是任性呐!
+   * 鸣谢 @冴羽
+   * https://segmentfault.com/a/1190000009638648
+   */
 
   function getUserAction(e) {
-    if (e.currentTarget === target) {
-      e.currentTarget.innerHTML = count++;
+    if (e.target === target) {
+      e.target.innerHTML = count++;
     } else {
       count = 1;
     }
-    target = e.currentTarget;
+    target = e.target;
   };
 
-  let timeout;
-  const debounce1 = (func, wait) => (e) => {
+  /*
+   * 第一版
+   * 随你怎么移动，你移动完 1000ms 内不再移动，我在执行事件
+   */
+
+  const debounce1 = (func, wait) => (...args) => {
+    const self = this;
     clearTimeout(timeout);
-    timeout = setTimeout(func(e), wait)
+    timeout = setTimeout(() => {
+      func.apply(self, args);
+    }, wait)
   };
 
+
+  const debounce2 = (func, wait, immediate) => (...args) => {
+    const self = this;
+    timeout && clearTimeout(timeout);
+    let callNow;
+    if (immediate) {
+      callNow = !timeout;
+      timeout = setTimeout(() => {
+        timeout = null;
+      }, wait);
+      console.log(callNow);
+      callNow && func.apply(self, args);
+    } else {
+      timeout = setTimeout(() => {
+        func.apply(self, args)
+      }, wait);
+    }
+  };
 </script>
 
 </html>
