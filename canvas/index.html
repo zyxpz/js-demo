@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas-demo</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div class="set-option">
+    <table>
+      <tr>
+        <td>画布尺寸: </td>
+        <td>宽：
+          <input type="number" value="0" name="width">
+        </td>
+        <td>高：
+          <input type="number" value="0" name="height">
+        </td>
+      </tr>
+      <tr>
+        <td>背景图片</td>
+        <td>
+          <input type="file" name="img-file">
+        </td>
+      </tr>
+      <tr>
+        <td>用户名</td>
+        <td>
+          <input type="text" name="user-name">
+        </td>
+      </tr>
+      <tr>
+        <td>用户名x坐标</td>
+        <td>
+          <input type="number" name="x-coordinate">
+          <input type="checkbox" name="x-center"> 居中显示
+        </td>
+      </tr>
+      <tr>
+        <td>用户名y坐标</td>
+        <td>
+          <input type="number" name="y-coordinate">
+          <input type="checkbox" name="y-center"> 居中显示
+        </td>
+      </tr>
+      <tr>
+        <td>
+          用户名字体大小
+        </td>
+        <td>
+          <input type="number" name="user-name-size" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          文字颜色
+        </td>
+        <td>
+          <input type="color" name="user-name-color" />
+        </td>
+      </tr>
+    </table>
+    <button class="preview J-preview">预览效果</button>
+    <button class="download-img J-download-img">下载当前图片</button>
+  </div>
+  <div class="my-canvas">
+    <canvas class="canvas-first J-canvas-first"></canvas>
+  </div>
+  <script src="./index.js"></script>
+</body>
+
+</html>
