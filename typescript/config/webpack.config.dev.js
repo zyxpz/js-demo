@@ -20,9 +20,15 @@ let arr = [];
 for (const k in entry) {
   const fileContent = returnFile({directory: entry[k]});
   if (/.html/.test(fileContent)) {
-    console.log(fileContent)
-    const filePath = `${k}.js`
-    console.log(entry[k].split('/'))
+    const filePath = `${k}.js`;
+    arr.push(
+      new HtmlWebpackPlugin({
+        filename: `${k}.html`,
+        chunks: [k],
+        inject: 'body',
+        template: `${process.cwd()}/${entry[k].replace(filePath, '')}/${fileContent.match(/\'([\s\S]+)\.html\'/)[1]}.html`
+      })
+    )
   } else {
     arr.push(
       new HtmlWebpackPlugin({

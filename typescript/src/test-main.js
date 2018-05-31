@@ -1,3 +1,3 @@
-import './test';
 import './test.html';
+import './test';
 

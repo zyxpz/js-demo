@@ -6,7 +6,7 @@
   "entry": {
     "index": "./src/index.ts",
     "class": "./src/class.ts",
-    "main": "./src/testMain.js"
+    "test-main": "./src/test-main.js"
   },
   "scripts": {
     "dev": "webpack-dev-server --config ./config/webpack.config.dev.js --color --progress --hot",
