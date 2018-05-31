@@ -1,0 +1,7 @@
+node_modules/**
+**/*.css
+**/*.html
+**/*.ejs
+config
+loaders
+lib

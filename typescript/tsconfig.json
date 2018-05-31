@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+      "module": "system",
+      "noImplicitAny": true,
+      "removeComments": true, // 编译 js 的时候，删除掉注释
+      "preserveConstEnums": true,
+      "outFile": "../../built/local/tsc.js",
+      "sourceMap": true, // ts 文件编译成 js 文件 同时生成对应的 map 文件
+  },
+  "include": [
+      "src/**/*"
+  ],
+  "exclude": [
+      "node_modules",
+      "**/*.spec.ts",
+      "lib"
+  ]
+}
