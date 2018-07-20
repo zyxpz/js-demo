@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://a.alipayobjects.com/anima-yocto/1.1.8/index.js"></script>
+</head>
+<body>
+  <section>
+    <div class="warp">
+      <div class="main">1</div>
+      <div class="main">2</div>
+      <div class="main">3</div>
+      <div class="main">4</div>
+      <div class="main">5</div>
+      <div class="main">6</div>
+    </div>
+  </section>
+</body>
+<script src="./index.js"></script>
+<script>
+  const scroll = new Scroll({
+    warp: 'warp',
+    main: 'main'
+  })
+
+  scroll.init();
+</script>
+</html>
