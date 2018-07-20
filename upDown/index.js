@@ -92,29 +92,27 @@ class Scroll {
 
     if (this.index >= this._mainLen) {
       this.index = this._mainLen
-      this.domShow(this.index, 'last')
+      this.domShow(this.index)
       return
     }
     this.domShow(this.index)
   }
 
-  domShow(index, type) {
-    console.log(index)
-    console.log(this._mainLen)
+  domShow(index) {
     if (index === -1) {
       this._warp.style.cssText = `transform: translate3d(0, ${1 * this.warpH}px, 0); transition: transform .5s`
       
       setTimeout(() => {
         this._warp.style.cssText = `transform: translate3d(0, ${-(this._mainLen - 1) * this.warpH}px, 0);`
-      }, 500);
+      }, 550);
     } else {
       this._warp.style.cssText = `transform: translate3d(0, -${index * this.warpH}px, 0); transition: transform .5s`
     }
     
-    if (index === this._mainLen && type === 'last') {
+    if (index === this._mainLen) {
       setTimeout(() => {
         this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
-      }, 500);
+      }, 550);
     }
     
   }
