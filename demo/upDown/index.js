@@ -54,6 +54,8 @@ class Scroll {
     e.preventDefault()
     this.attrs.startPos = e.touches[0].pageY
 
+    this.attrs.endPos = ''
+
     this.index = e.target.index
 
     this._warp.addEventListener('touchmove', this.handleTouchMove.bind(this))
@@ -68,10 +70,14 @@ class Scroll {
   }
 
   handleTouchEnd() {
-    if ((this.attrs.endPos - this.attrs.startPos) > 10) {
-      this.prev()
-    } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
-      this.next()
+    if (this.attrs.endPos !== '') {
+      if ((this.attrs.endPos - this.attrs.startPos) > 10) {
+        this.prev()
+        this._warp.removeEventListener('touchstart', this.handleTouchStart)
+      } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
+        this.next()
+        this._warp.removeEventListener('touchstart', this.handleTouchStart)
+      }
     }
   }
 
