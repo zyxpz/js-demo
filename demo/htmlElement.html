@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .hide {
+      display: none;
+    }
+
+    .bor {
+      border: solid 1px red;
+    }
+
+    .clo {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="div1">123</div>
+</body>
+<script>
+  HTMLElement.prototype.addClass = function (e) {
+    if (typeof e === 'object') {
+      e.forEach(item => {
+        this.className = `${this.className} ${item}`
+      });
+
+    } else {
+      this.className = `${this.className} ${e}`
+    }
+  }
+
+  HTMLElement.prototype.removeClass = function (e) {
+    let newClassNames = new Array;
+    this.className.split(' ').map((item, i) => {
+      if (item === e) {
+        item = '';
+      }
+      newClassNames.push(item);
+    });
+    this.className = newClassNames.join(' ');
+  }
+
+  const x1 = document.querySelector('.div1');
+
+  x1.addClass(['bor', 'clo']);
+  x1.removeClass('bor');
+</script>
+
+</html>

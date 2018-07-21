@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      position: relative;
+    }
+
+    .box:before {
+      content: attr(val);
+      position: absolute;
+      right: 0;
+      top: 20px;
+      width: 100%;
+      height: 20px;
+    }
+
+    div:nth-of-type(2) {
+      background-image: url(https://gw.alipayobjects.com/zos/rmsportal/lbNohFUxouZiuYzdXeIC.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 400px;
+      height: 100px;
+    }
+
+    div:nth-of-type(3) {
+      background-image: url(https://gw.alipayobjects.com/zos/rmsportal/gkxVwnfmGrrMqTgWHXOc.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 260px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <input type="text" oninput="getVal(event)">
+  </div>
+  <div></div>
+  <div></div>
+  <script>
+    const box = document.querySelector('.box');
+    function getVal(event) {
+      box.setAttribute('val', event.target.value);
+    }
+  </script>
+</body>
+</html>

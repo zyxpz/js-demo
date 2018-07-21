@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let tpl =
+    '<div class="pt-trade-wrap"><div class="trade-close"></div><header><%=title%></header><main class="trade-content"><div class="month-wrap">本月</div><%list.forEach(function(item){%><div class="J-trade-list trade-list"><div class="title-wrap"><span><%=item.subhead%></span><span><%=item.amount%></span></div><div class="des-wrap"><span><%=item.time%></span><span><%=item.stateDesc%></span></div></div><%})%><div class="see-information"><%=btn%></div></main></div>'
+
+  const reg = new RegExp(/<%=item.\s*?[\w\d\-_]*\s*?%>/, 'gi')
+
+  const arr = [{
+      key: 'one',
+      name: '一'
+    },
+    {
+      key: 'two',
+      name: '二'
+    },
+    {
+      key: 'three',
+      name: '三'
+    },
+    {
+      key: 'four',
+      name: '四'
+    }
+  ]
+
+  const content = tpl.match(reg)
+
+  for (const key in content) {
+    const reg = RegExp(content[key], 'gi')
+
+    const newE = `<%=item.${arr[key].key}%>`
+    if (reg.test(tpl)) {
+      tpl = tpl.replace(reg, newE)
+    }
+  }
+</script>
+
+</html>

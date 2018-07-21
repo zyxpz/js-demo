@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  const pc = [1,2,3].map(item => item ** 2)
+
+  const as = [1,2,3].map(async item => item ** 2)
+
+  const func3 = async () => {
+    const result = await Promise.all([1,2,3].map(async item => item ** 2))
+    return result;
+  }
+  
+  console.log(pc, as);
+  console.log(func3().then(v => console.log(v)));
+  // console.log(pc, as)
+
+  function func() {
+    return new Promise(result => result(1))
+  }
+
+  // async function func1() {
+  //   return 1
+  // }
+
+  // func().then(result => console.log(result));
+
+    console.log(func());
+  // async function func2(params) {
+  //   let result = await func1();
+  //   console.log(result);
+  // }
+
+  // func2();
+  
+
+  
+</script>
+</html>

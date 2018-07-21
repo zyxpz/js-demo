@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>capture screen</title>
+  <style type="text/css">
+    video {
+      width: 300px;
+      height: 200px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <video id="video" controls="controls">
+    <source src="https://os.alipayobjects.com/rmsportal/tZSNNJaKaVcFvYl.mp4">
+  </video>
+  <canvas id="canvas"></canvas>
+  <script>
+    let video, container;
+    const scale = 0.8;
+    const canvas = document.getElementById("canvas");
+    function initialize() {
+      container = document.getElementById("container");
+      video = document.getElementById("video");
+      video.addEventListener('loadeddata', captureImage);
+    };
+    function captureImage(e) {
+      canvas.width = this.videoWidth * scale;
+      canvas.height = this.videoHeight * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+      const img = new Image();
+      img.src = 'https://gw.alipayobjects.com/zos/rmsportal/wmIiGxTYZmUazDNrgfQQ.png';
+      img.onload = function() {
+        ctx.drawImage(this, 181, 69, 150, 150);
+      }
+    };
+    initialize();
+
+    canvas.addEventListener('click', () => {
+      video.play();
+      video.style.display = 'block';
+      canvas.style.display = 'none';
+    })
+
+    video.addEventListener('ended', () => {
+      canvas.style.display = 'block';
+      video.style.display = 'none';
+    })
+  </script>
+</body>
+
+</html>
