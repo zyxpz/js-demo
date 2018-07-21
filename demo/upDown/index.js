@@ -79,6 +79,7 @@ class Scroll {
         this._warp.removeEventListener('touchstart', this.handleTouchStart)
       }
     }
+    this._warp.removeEventListener('touchstart', this.handleTouchStart)
   }
 
   prev() {
