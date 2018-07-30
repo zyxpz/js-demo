@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html,
+    body,
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+</body>
+<script>
+  const _ul = document.createElement('ul')
+
+  let str = '';
+
+  for (let i = 0; i < 16; i++) {
+    str += `<li draggable="true" num=${i}>${i}</li>`
+  }
+
+  _ul.innerHTML = str
+
+  document.body.appendChild(_ul)
+
+  const _li = document.querySelectorAll('li')
+
+  let dropDom = '';
+
+  const drag = event => {
+    event.forEach(element => {
+      // 拖动开始
+      element.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('num', e.target.getAttribute('num'))
+
+        // 拖动中
+        e.target.addEventListener('drag', e => {
+          e.target.style.cssText = 'color: red; border: solid 1px red'
+        })
+
+        // 松手
+        e.target.addEventListener('dragend', e => {
+          e.target.style.cssText = 'color: black; border: none'
+        })
+      })
+    });
+  }
+
+
+  // 拖动至
+  const drop = event => {
+    event.addEventListener('dragover', e => {
+      e.preventDefault()
+
+      dropDom = e.path[0];
+
+      dropDom.style.border = 'solid 1px blue'
+      
+    })
+
+    // 当可拖放的p元素离开droptarget，重置div的边框样式,
+    event.addEventListener("dragleave", e => {
+      e.target.style.border = "";
+    });
+
+    // 利用dataTransfer.getData()方法获得拖放数据
+    event.addEventListener('drop', e => {
+      e.preventDefault()
+      const num = e.dataTransfer.getData('num')
+
+      _li.forEach(item => {
+        const domNum = item.getAttribute('num')
+
+        if (domNum === num) {
+          event.insertBefore(item, dropDom)
+        }
+      })
+
+      e.target.style.border = "";
+    })
+  }
+
+  drag(_li)
+
+  drop(document.querySelector('ul'))
+</script>
+
+</html>
