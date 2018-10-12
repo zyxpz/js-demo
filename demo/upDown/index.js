@@ -10,7 +10,11 @@ class Scroll {
       main: opts.main,
       startPos: '', // 初始位置
       endPos: '', // 结束位置
+      play: opts.play || false, // 自动播放
+      time: 3000, // 播放时间 默认3000
     }
+
+    this.index = 1;
   }
 
   init() {
@@ -42,6 +46,10 @@ class Scroll {
     });
 
     this.handleMoveEventListener();
+
+    if (this.attrs.play) {
+      this.handlePlayer()
+    }
   }
 
   handleMoveEventListener() {
@@ -86,7 +94,7 @@ class Scroll {
     this.index = this.index - 1
 
     if (this.index < 0) {
-      this.index = - 1
+      this.index = -1
       this.domShow(this.index)
       return
     }
@@ -106,21 +114,30 @@ class Scroll {
   }
 
   domShow(index) {
+    console.log(index)
     if (index === -1) {
       this._warp.style.cssText = `transform: translate3d(0, ${1 * this.warpH}px, 0); transition: transform .5s`
-      
+
       setTimeout(() => {
         this._warp.style.cssText = `transform: translate3d(0, ${-(this._mainLen - 1) * this.warpH}px, 0);`
       }, 550);
     } else {
       this._warp.style.cssText = `transform: translate3d(0, -${index * this.warpH}px, 0); transition: transform .5s`
     }
-    
+
     if (index === this._mainLen) {
+      this.index = -1
       setTimeout(() => {
         this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
       }, 550);
     }
-    
+  }
+
+  handlePlayer() {
+    const that = this;
+    setInterval(() => {
+      that.domShow(that.index)
+      that.index = that.index + 1
+    }, this.attrs.time)
   }
 }
