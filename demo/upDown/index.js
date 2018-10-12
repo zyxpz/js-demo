@@ -3,7 +3,7 @@ Object.prototype.prepend = function (newElenment) {
   return this
 }
 
-class Scroll {
+ export default class Carousel {
   constructor(opts) {
     this.attrs = {
       warp: opts.warp,
@@ -11,22 +11,28 @@ class Scroll {
       startPos: '', // 初始位置
       endPos: '', // 结束位置
       play: opts.play || false, // 自动播放
-      time: 3000, // 播放时间 默认3000
+      time: opts.time || 2000, // 播放时间 默认3000
+      horizontal: opts.horizontal || false, // 方向 默认横向
     }
 
-    this.index = 1;
+    this.index = 0;
   }
 
   init() {
     this._warp = document.querySelector(`.${this.attrs.warp}`)
 
     this._main = document.querySelectorAll(`.${this.attrs.main}`)
+    console.log(this.attrs.warp,'00000')
 
     this._mainLen = this._main.length
 
     const warpH = this._warp.offsetHeight
 
+    const warpW = this._warp.offsetWidth
+
     this.warpH = warpH
+
+    this.warpW = warpW
 
     const cloneFirst = this._main[0].cloneNode(true)
 
@@ -38,8 +44,12 @@ class Scroll {
 
     this._warp.childNodes.forEach((e, i) => {
       if (e.nodeType === 1) {
-        e.style.height = `${warpH}px`
-        e.style.top = `${warpH * ((i / 2) - 1)}px`
+        e.style.height = `${warpH}px`;
+        if (this.attrs.horizontal) {
+          e.style.left = `${warpW * ((i / 2) - 1)}px`
+        } else {
+          e.style.top = `${warpH * ((i / 2) - 1)}px`
+        }
         e.setAttribute('data-tap', (i / 2) - 1)
         e.index = (i / 2) - 1
       }
@@ -114,30 +124,47 @@ class Scroll {
   }
 
   domShow(index) {
-    console.log(index)
-    if (index === -1) {
-      this._warp.style.cssText = `transform: translate3d(0, ${1 * this.warpH}px, 0); transition: transform .5s`
+    if (this.attrs.horizontal) {
+      if (index === -1) {
+        this._warp.style.cssText = `transform: translate3d(${1 * this.warpW}px, 0, 0); transition: transform .5s`
 
-      setTimeout(() => {
-        this._warp.style.cssText = `transform: translate3d(0, ${-(this._mainLen - 1) * this.warpH}px, 0);`
-      }, 550);
+        setTimeout(() => {
+          this._warp.style.cssText = `transform: translate3d(${-(this._mainLen - 1) * this.warpW}px, 0, 0);`
+        }, 550);
+      } else {
+        this._warp.style.cssText = `transform: translate3d(${-index * this.warpW}px, 0,0); transition: transform .5s`
+      }
+
+      if (index === this._mainLen) {
+        this.index = -1
+        setTimeout(() => {
+          this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
+        }, 550);
+      }
     } else {
-      this._warp.style.cssText = `transform: translate3d(0, -${index * this.warpH}px, 0); transition: transform .5s`
-    }
+      if (index === -1) {
+        this._warp.style.cssText = `transform: translate3d(0, ${1 * this.warpH}px, 0); transition: transform .5s`
 
-    if (index === this._mainLen) {
-      this.index = -1
-      setTimeout(() => {
-        this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
-      }, 550);
+        setTimeout(() => {
+          this._warp.style.cssText = `transform: translate3d(0, ${-(this._mainLen - 1) * this.warpH}px, 0);`
+        }, 550);
+      } else {
+        this._warp.style.cssText = `transform: translate3d(0, -${index * this.warpH}px, 0); transition: transform .5s`
+      }
+
+      if (index === this._mainLen) {
+        this.index = -1
+        setTimeout(() => {
+          this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
+        }, 550);
+      }
     }
   }
 
   handlePlayer() {
     const that = this;
     setInterval(() => {
-      that.domShow(that.index)
-      that.index = that.index + 1
+      that.next()
     }, this.attrs.time)
   }
 }
