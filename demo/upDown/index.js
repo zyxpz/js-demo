@@ -3,7 +3,7 @@ Object.prototype.prepend = function (newElenment) {
   return this
 }
 
- export default class Carousel {
+export default class Carousel {
   constructor(opts) {
     this.attrs = {
       warp: opts.warp,
@@ -22,7 +22,6 @@ Object.prototype.prepend = function (newElenment) {
     this._warp = document.querySelector(`.${this.attrs.warp}`)
 
     this._main = document.querySelectorAll(`.${this.attrs.main}`)
-    console.log(this.attrs.warp,'00000')
 
     this._mainLen = this._main.length
 
