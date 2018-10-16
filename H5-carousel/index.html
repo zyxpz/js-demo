@@ -9,22 +9,46 @@
   <script src="https://a.alipayobjects.com/anima-yocto/1.1.8/index.js"></script>
 </head>
 <body>
-  <section>
-    <div class="warp">
-      <div class="main">1</div>
-      <div class="main">2</div>
-      <div class="main">3</div>
+  <section class="sec1">
+    <div class="warp w1">
+      <div class="main m1">
+        <div>1</div>
+      </div>
+      <div class="main m1"><div>2</div></div>
+      <div class="main m1"><div>3</div></div>
     </div>
+  </section>
+
+  <section class="sec2">
+      <div class="warp w2">
+          <div class="main m2">
+            <div>1</div>
+          </div>
+          <div class="main m2"><div>2</div></div>
+          <div class="main m2"><div>3</div></div>
+          <div class="main m2"><div>4</div></div>
+        </div>
   </section>
 </body>
 <script src="./index.js"></script>
 <script>
-  const scroll = new Scroll({
-    warp: 'warp',
-    main: 'main',
-    play: true
+  const carousel = new Carousel({
+    warp: 'w1',
+    main: 'm1',
+    play: true,
+    point: true
   })
 
-  scroll.init();
+  carousel.init();
+
+  const carousel2 = new Carousel({
+    warp: 'w2',
+    main: 'm2',
+    play: true,
+    horizontal: true,
+    point: true
+  })
+
+  carousel2.init();
 </script>
 </html>
