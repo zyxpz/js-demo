@@ -3,7 +3,7 @@ Object.prototype.prepend = function (newElenment) {
   return this
 }
 
-export default class Carousel {
+class Carousel {
   constructor(opts) {
     this.attrs = {
       warp: opts.warp,
@@ -71,9 +71,17 @@ export default class Carousel {
     e.preventDefault()
     this.attrs.startPos = e.touches[0].pageY
 
+    this.attrs.startPosX = e.touches[0].pageX 
+
     this.attrs.endPos = ''
 
-    this.index = e.target.index
+    if (e.target.className !== this.attrs.main) {
+      this.index = e.target.parentNode.index
+    } else {
+      this.index = e.target.index
+    }
+
+    clearInterval(this.interval)
 
     this._warp.addEventListener('touchmove', this.handleTouchMove.bind(this))
 
@@ -84,19 +92,39 @@ export default class Carousel {
 
     this.attrs.endPos = e.touches[0].pageY
 
+    this.attrs.endPosX = e.touches[0].pageX
+
   }
 
   handleTouchEnd() {
-    if (this.attrs.endPos !== '') {
-      if ((this.attrs.endPos - this.attrs.startPos) > 10) {
-        this.prev()
-        this._warp.removeEventListener('touchstart', this.handleTouchStart)
-      } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
-        this.next()
-        this._warp.removeEventListener('touchstart', this.handleTouchStart)
+    if (this.attrs.horizontal) {
+      if (this.attrs.endPos !== '') {
+        if ((this.attrs.endPosX - this.attrs.startPosX) > 10) {
+          this.prev()
+          this._warp.removeEventListener('touchstart', this.handleTouchStart)
+        } else if ((this.attrs.endPosX - this.attrs.startPosX) < -10) {
+          this.next()
+          this._warp.removeEventListener('touchstart', this.handleTouchStart)
+        }
+      }
+    } else {
+      if (this.attrs.endPos !== '') {
+        if ((this.attrs.endPos - this.attrs.startPos) > 10) {
+          this.prev()
+          this._warp.removeEventListener('touchstart', this.handleTouchStart)
+        } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
+          this.next()
+          this._warp.removeEventListener('touchstart', this.handleTouchStart)
+        }
       }
     }
+    
     this._warp.removeEventListener('touchstart', this.handleTouchStart)
+
+    if (this.attrs.play) {
+      this.handlePlayer()
+    }
+    
   }
 
   prev() {
@@ -162,7 +190,7 @@ export default class Carousel {
 
   handlePlayer() {
     const that = this;
-    setInterval(() => {
+    this.interval = setInterval(() => {
       that.next()
     }, this.attrs.time)
   }

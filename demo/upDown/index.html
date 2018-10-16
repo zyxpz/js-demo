@@ -10,21 +10,42 @@
 </head>
 <body>
   <section>
-    <div class="warp">
-      <div class="main">1</div>
-      <div class="main">2</div>
-      <div class="main">3</div>
+    <div class="warp w1">
+      <div class="main m1">
+        <div>1</div>
+      </div>
+      <div class="main m1"><div>2</div></div>
+      <div class="main m1"><div>3</div></div>
+    </div>
+
+<br>
+
+    <div class="warp w2">
+      <div class="main m2">
+        <div>1</div>
+      </div>
+      <div class="main m2"><div>2</div></div>
+      <div class="main m2"><div>3</div></div>
     </div>
   </section>
 </body>
 <script src="./index.js"></script>
 <script>
-  const scroll = new Scroll({
-    warp: 'warp',
-    main: 'main',
+  const carousel = new Carousel({
+    warp: 'w1',
+    main: 'm1',
     play: true
   })
 
-  scroll.init();
+  carousel.init();
+
+  const carousel2 = new Carousel({
+    warp: 'w2',
+    main: 'm2',
+    play: true,
+    horizontal: true
+  })
+
+  carousel2.init();
 </script>
 </html>
