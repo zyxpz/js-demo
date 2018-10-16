@@ -50,7 +50,7 @@ class CircleCanvas {
     this.ctx.beginPath() // 路径开始
     this.ctx.arc(this.centerX, this.centerY, 100, -Math.PI / 2, -Math.PI / 2 + n * this.R, false) // 用于绘制圆弧this.ctx.arc(x坐标，y坐标，半径，起始角度，终止角度，顺时针/逆时针)
     this.ctx.stroke() // 绘制
-    this.ctx.closePath() // 路径结束
+    // this.ctx.closePath() // 路径结束
     this.ctx.restore()
   }
 
