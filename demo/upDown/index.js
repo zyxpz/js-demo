@@ -92,7 +92,7 @@ class Carousel {
             position: absolute;
             bottom: 10px;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, 0);
           }
           .point-list-true {
             margin-right: 5px;
@@ -109,7 +109,7 @@ class Carousel {
           position: absolute;
           top: 50%;
           left: 30px;
-          transform: translate(-50%,-50%);
+          transform: translate(0, -50%);
         }
         .point-list-false {
           margin-right: 5px;
@@ -229,7 +229,7 @@ class Carousel {
     }
     this.pointList.forEach(e => {
       if (e.getAttribute('data-tap') === index.toString()) {
-        e.className = e.className.replace(/selected-point-list/, ' ');
+        e.className = e.className.replace(/selected-point-list/, '');
         e.className += ' selected-point-list'
       } else {
         e.className = e.className.replace(/\s+selected-point-list/, '');
