@@ -13,6 +13,9 @@ class Carousel {
       play: opts.play || false, // 自动播放
       time: opts.time || 2000, // 播放时间 默认3000
       horizontal: opts.horizontal || false, // 方向 默认横向
+      point: opts.point || false,
+      pointColor: opts.pointColor || 'blue',
+      pointSize: opts.pointSize || '6px'
     }
 
     this.index = 0;
@@ -49,7 +52,6 @@ class Carousel {
         } else {
           e.style.top = `${warpH * ((i / 2) - 1)}px`
         }
-        e.setAttribute('data-tap', (i / 2) - 1)
         e.index = (i / 2) - 1
       }
     });
@@ -59,6 +61,74 @@ class Carousel {
     if (this.attrs.play) {
       this.handlePlayer()
     }
+
+    // 创建小点
+    if (this.attrs.point) {
+      this.createPoint()
+
+      this.handlePoint(this.index)
+    }
+  }
+
+  createPoint() {
+    const styleEl = document.createElement('style')
+
+    const parentEle = this._warp.parentNode
+
+    parentEle.style.position = 'relative'
+
+    let pointDom = document.createElement('div');
+
+    pointDom.className = `point-dom-${this.attrs.horizontal}`
+
+    this._main.forEach((e, i) => {
+      pointDom.innerHTML += `<span class='point-list-${this.attrs.horizontal}' data-tap='${i}'>●</span>`
+    });
+
+    if (this.attrs.horizontal) {
+      styleEl.innerHTML =
+        `
+          .point-dom-true {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+          }
+          .point-list-true {
+            margin-right: 5px;
+            font-size: ${this.attrs.pointSize};
+          }
+          .selected-point-list {
+            color: ${this.attrs.pointColor};
+          }
+        `
+    } else {
+      styleEl.innerHTML = 
+      `
+        .point-dom-false {
+          position: absolute;
+          top: 50%;
+          left: 30px;
+          transform: translate(-50%,-50%);
+        }
+        .point-list-false {
+          margin-right: 5px;
+          display: block;
+          font-size: ${this.attrs.pointSize};
+        }
+        .selected-point-list {
+          color: ${this.attrs.pointColor};
+        }
+      `
+    }
+
+
+    parentEle.appendChild(pointDom)
+
+    parentEle.appendChild(styleEl)
+
+    this.pointList = pointDom.childNodes
+
   }
 
   handleMoveEventListener() {
@@ -71,7 +141,7 @@ class Carousel {
     e.preventDefault()
     this.attrs.startPos = e.touches[0].pageY
 
-    this.attrs.startPosX = e.touches[0].pageX 
+    this.attrs.startPosX = e.touches[0].pageX
 
     this.attrs.endPos = ''
 
@@ -118,13 +188,13 @@ class Carousel {
         }
       }
     }
-    
+
     this._warp.removeEventListener('touchstart', this.handleTouchStart)
 
     if (this.attrs.play) {
       this.handlePlayer()
     }
-    
+
   }
 
   prev() {
@@ -147,7 +217,24 @@ class Carousel {
       this.domShow(this.index)
       return
     }
+
+
+
     this.domShow(this.index)
+  }
+
+  handlePoint(index) {
+    if (index === -1) {
+      index = 0
+    }
+    this.pointList.forEach(e => {
+      if (e.getAttribute('data-tap') === index.toString()) {
+        e.className = e.className.replace(/selected-point-list/, ' ');
+        e.className += ' selected-point-list'
+      } else {
+        e.className = e.className.replace(/\s+selected-point-list/, '');
+      }
+    })
   }
 
   domShow(index) {
@@ -185,6 +272,10 @@ class Carousel {
           this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
         }, 550);
       }
+    }
+
+    if (this.attrs.point) {
+      this.handlePoint(this.index)
     }
   }
 
