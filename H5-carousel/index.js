@@ -246,7 +246,7 @@ class Carousel {
       }
 
       if (index === this._mainLen) {
-        this.index = -1
+        this.index = 0
         setTimeout(() => {
           this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
         }, 550);
@@ -263,7 +263,7 @@ class Carousel {
       }
 
       if (index === this._mainLen) {
-        this.index = -1
+        this.index = 0
         setTimeout(() => {
           this._warp.style.cssText = `transform: translate3d(0, 0, 0);`
         }, 550);
