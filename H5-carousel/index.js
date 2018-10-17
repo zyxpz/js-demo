@@ -204,6 +204,7 @@ class Carousel {
   }
 
   next() {
+    console.log(this.index, 1)
     this.index = this.index + 1
 
     if (this.index >= this._mainLen) {
@@ -213,7 +214,8 @@ class Carousel {
     }
 
 
-
+    console.log(this.index, 2)
+    
     this.domShow(this.index)
   }
 
@@ -236,6 +238,7 @@ class Carousel {
   domShow(index) {
     if (this.attrs.horizontal) {
       if (index === -1) {
+        this.index = this._mainLen
         this._warp.style.cssText = `transform: translate3d(${1 * this.warpW}px, 0, 0); transition: transform .5s`
 
         setTimeout(() => {
@@ -253,6 +256,7 @@ class Carousel {
       }
     } else {
       if (index === -1) {
+        this.index = this._mainLen
         this._warp.style.cssText = `transform: translate3d(0, ${1 * this.warpH}px, 0); transition: transform .5s`
 
         setTimeout(() => {
