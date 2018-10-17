@@ -37,24 +37,31 @@ class CircleCanvas {
     this.ctx = this.circle.getContext('2d')
     this.centerX = this.circle.width / 2
     this.centerY = this.circle.height / 2
-    this.R = Math.PI * 2 / 100
+    this.R = Math.PI * 2 / 100 // 圆周分为一百份
 
     this.handleRun()
+
   }
 
   // 处理运动轨迹
   handleOuterCircle(n) {
     this.ctx.save()
-    const gradient = this.ctx.createLinearGradient(0, 0, 170, 0);
-    gradient.addColorStop("0", "magenta");
-    gradient.addColorStop("0.5", "blue");
-    gradient.addColorStop("1.0", "red");
-    this.ctx.strokeStyle = gradient // 设置描边样式
-    this.ctx.lineWidth = 10 // 设置线宽
-    this.ctx.beginPath() // 路径开始
-    this.ctx.arc(this.centerX, this.centerY, 100, -Math.PI / 2, -Math.PI / 2 + n * this.R, false) // 用于绘制圆弧this.ctx.arc(x坐标，y坐标，半径，起始角度，终止角度，顺时针/逆时针)
-    this.ctx.stroke() // 绘制
-    // this.ctx.closePath() // 路径结束
+    this.ctx.beginPath() 
+    this.ctx.lineCap = 'round'
+    this.ctx.strokeStyle = '#EFCCCE'
+    this.ctx.lineWidth = '40'
+    this.ctx.lineCap = 'round'
+    this.ctx.arc(this.centerX, this.centerY, 105, -Math.PI / 2, -Math.PI / 2 + n * this.R, false)
+    this.ctx.stroke()
+    const gradient = this.ctx.createLinearGradient(this.centerX, this.centerY, -Math.PI / 2, -Math.PI / 2 + n * this.R)
+    gradient.addColorStop('0', 'yellow')
+    gradient.addColorStop('0.3', 'blue')
+    gradient.addColorStop('0.6', 'green')
+    gradient.addColorStop('1.0', 'red')
+    this.ctx.strokeStyle = gradient
+    this.ctx.lineWidth = '25'
+    this.ctx.lineCap = 'round'
+    this.ctx.stroke()
     this.ctx.restore()
   }
 
@@ -62,9 +69,11 @@ class CircleCanvas {
   handleMotionCircle() {
     this.ctx.save()
     this.ctx.beginPath()
-    this.ctx.lineWidth = 10 // 设置线宽
-    this.ctx.strokeStyle = "rgb(255,255,255,0.5)"
+    this.ctx.lineWidth = 40
+    this.ctx.strokeStyle = 'rgb(255,255,255,0.5)'
     this.ctx.arc(this.centerX, this.centerY, 100, 0, Math.PI * 2, false)
+    this.ctx.fillStyle = '#fff'
+    this.ctx.fill()
     this.ctx.stroke()
     this.ctx.closePath()
     this.ctx.restore()
@@ -72,12 +81,11 @@ class CircleCanvas {
 
   // 处理文字
   handleText(n) {
-    this.ctx.save() // save和restore可以保证样式属性只运用于该段canvas元素
-    this.ctx.strokeStyle = "#fff" // 设置描边样式
-    this.ctx.font = "40px Arial" // 设置字体大小和字体
-    // 绘制字体，并且指定位置
-    this.ctx.strokeText(n.toFixed(0) + "%", this.centerX - 25, this.centerY + 10)
-    this.ctx.stroke() // 执行绘制
+    this.ctx.save()
+    this.ctx.fillStyle = 'red'
+    this.ctx.font = '40px Arial'
+    this.ctx.fillText(n.toFixed(0) + '%', this.centerX - 25, this.centerY + 10)
+    this.ctx.stroke()
     this.ctx.restore()
   }
 
@@ -85,15 +93,15 @@ class CircleCanvas {
     const that = this
 
     this.timmer = setInterval(() => {
-      that.ctx.clearRect(0, 0, that.circle.width, that.circle.height);
-      that.handleOuterCircle(that.speed);
-      that.handleText(that.speed);
-      that.handleMotionCircle();
+      that.ctx.clearRect(0, 0, that.circle.width, that.circle.height)
+      that.handleMotionCircle()
+      that.handleOuterCircle(that.speed)
+      that.handleText(that.speed)
       if (that.speed > that.whole) {
         clearInterval(that.timmer)
-        that.speed = 0;
+        that.speed = 0
       }
-      that.speed += 0.1;
+      that.speed += 0.1
     }, 50)
   }
 }
