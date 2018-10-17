@@ -171,25 +171,19 @@ class Carousel {
       if (this.attrs.endPos !== '') {
         if ((this.attrs.endPosX - this.attrs.startPosX) > 10) {
           this.prev()
-          this._warp.removeEventListener('touchstart', this.handleTouchStart)
         } else if ((this.attrs.endPosX - this.attrs.startPosX) < -10) {
           this.next()
-          this._warp.removeEventListener('touchstart', this.handleTouchStart)
         }
       }
     } else {
       if (this.attrs.endPos !== '') {
         if ((this.attrs.endPos - this.attrs.startPos) > 10) {
           this.prev()
-          this._warp.removeEventListener('touchstart', this.handleTouchStart)
         } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
           this.next()
-          this._warp.removeEventListener('touchstart', this.handleTouchStart)
         }
       }
     }
-
-    this._warp.removeEventListener('touchstart', this.handleTouchStart)
 
     if (this.attrs.play) {
       this.handlePlayer()
@@ -225,6 +219,8 @@ class Carousel {
 
   handlePoint(index) {
     if (index === -1) {
+      index = this._mainLen - 1
+    } else if(index === this._mainLen) {
       index = 0
     }
     this.pointList.forEach(e => {
@@ -275,7 +271,7 @@ class Carousel {
     }
 
     if (this.attrs.point) {
-      this.handlePoint(this.index)
+      this.handlePoint(index)
     }
   }
 

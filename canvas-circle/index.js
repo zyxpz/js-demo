@@ -45,8 +45,12 @@ class CircleCanvas {
   // 处理运动轨迹
   handleOuterCircle(n) {
     this.ctx.save()
-    this.ctx.strokeStyle = "#fff" // 设置描边样式
-    this.ctx.lineWidth = 5 // 设置线宽
+    const gradient = this.ctx.createLinearGradient(0, 0, 170, 0);
+    gradient.addColorStop("0", "magenta");
+    gradient.addColorStop("0.5", "blue");
+    gradient.addColorStop("1.0", "red");
+    this.ctx.strokeStyle = gradient // 设置描边样式
+    this.ctx.lineWidth = 10 // 设置线宽
     this.ctx.beginPath() // 路径开始
     this.ctx.arc(this.centerX, this.centerY, 100, -Math.PI / 2, -Math.PI / 2 + n * this.R, false) // 用于绘制圆弧this.ctx.arc(x坐标，y坐标，半径，起始角度，终止角度，顺时针/逆时针)
     this.ctx.stroke() // 绘制
@@ -58,8 +62,8 @@ class CircleCanvas {
   handleMotionCircle() {
     this.ctx.save()
     this.ctx.beginPath()
-    this.ctx.lineWidth = 2 // 设置线宽
-    this.ctx.strokeStyle = "red"
+    this.ctx.lineWidth = 10 // 设置线宽
+    this.ctx.strokeStyle = "rgb(255,255,255,0.5)"
     this.ctx.arc(this.centerX, this.centerY, 100, 0, Math.PI * 2, false)
     this.ctx.stroke()
     this.ctx.closePath()
