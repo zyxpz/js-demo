@@ -204,7 +204,6 @@ class Carousel {
   }
 
   next() {
-    console.log(this.index, 1)
     this.index = this.index + 1
 
     if (this.index >= this._mainLen) {
@@ -213,9 +212,6 @@ class Carousel {
       return
     }
 
-
-    console.log(this.index, 2)
-    
     this.domShow(this.index)
   }
 
