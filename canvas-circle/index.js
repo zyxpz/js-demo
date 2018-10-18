@@ -50,7 +50,6 @@ class CircleCanvas {
     this.ctx.lineCap = 'round'
     this.ctx.strokeStyle = '#EFCCCE'
     this.ctx.lineWidth = '40'
-    this.ctx.lineCap = 'round'
     this.ctx.arc(this.centerX, this.centerY, 105, -Math.PI / 2, -Math.PI / 2 + n * this.R, false)
     this.ctx.stroke()
     const gradient = this.ctx.createLinearGradient(this.centerX, this.centerY, -Math.PI / 2, -Math.PI / 2 + n * this.R)

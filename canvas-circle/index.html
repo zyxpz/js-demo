@@ -11,15 +11,24 @@
 <body>
   <section>
     <canvas class="J-cavans" width="300" height="300" style="background:red;"></canvas>
+    <canvas class="J-cavans2" width="300" height="300" style="background:black;"></canvas>
   </section>
 </body>
 <script src="./index.js"></script>
+<script src="./index2.js"></script>
 <script>
   const canvas = new CircleCanvas({
     ele: 'J-cavans',
   })
 
   canvas.init()
+
+
+  const canvas2 = new CircleCanvas2({
+    ele: 'J-cavans2',
+  })
+
+  canvas2.init()
 </script>
 
 </html>
