@@ -1,7 +1,7 @@
 class CircleCanvas {
   constructor(props) {
 
-    this.position = 0.1
+    this.startP = 0.1
 
     this.speed = 0.1
 
@@ -94,7 +94,7 @@ class CircleCanvas {
     this.ctx.fillStyle = 'red'
     this.ctx.font = '40px Arial'
     this.ctx.fillText(n.toFixed(0) + '%', this.centerX - 25, this.centerY + 10)
-    this.ctx.stroke()
+    // this.ctx.stroke()
     this.ctx.restore()
   }
 

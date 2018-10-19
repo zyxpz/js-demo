@@ -100,7 +100,7 @@ class CircleCanvas2 {
     this.ctx.fillStyle = 'red'
     this.ctx.font = '40px Arial'
     this.ctx.fillText(`${number} %`, this.centerX / 2 - 25, this.centerY / 2 + 10)
-    this.ctx.stroke()
+    // this.ctx.stroke()
     this.ctx.restore()
   }
 
