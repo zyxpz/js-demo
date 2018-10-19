@@ -21,7 +21,28 @@
     ele: 'J-cavans',
   })
 
-  canvas.init()
+  canvas.init({
+    startP: 0,
+    speed: 0.4,
+    endP: 15,
+    finished() {
+      this.init({
+        startP: 20,
+        speed: 0.4,
+        endP: 30,
+        finished() {
+          this.init({
+            startP: 30,
+            speed: 0.6,
+            endP: 60,
+            finished() {
+              alert('完成')
+            }
+          })
+        }
+      })
+    }
+  })
 
 
   const canvas2 = new CircleCanvas2({

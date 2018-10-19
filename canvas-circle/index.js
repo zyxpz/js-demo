@@ -1,11 +1,13 @@
 class CircleCanvas {
   constructor(props) {
 
-    this.speed = props.speed || 0.1
+    this.position = 0.1
+
+    this.speed = 0.1
 
     this.element = props.ele // cavans 元素
 
-    this.whole = props.whole || 100
+    this.endP = 100
 
     this.ctx = ''
 
@@ -19,7 +21,15 @@ class CircleCanvas {
     this.circle = null
   }
 
-  init() {
+  init(opts) {
+    this.startP = opts.startP
+
+    this.speed = opts.speed
+
+    this.endP = opts.endP
+
+    this.finished = opts.finished || function loop() {}
+
     this.findEle()
   }
 
@@ -46,16 +56,16 @@ class CircleCanvas {
   // 处理运动轨迹
   handleOuterCircle(n) {
     this.ctx.save()
-    this.ctx.beginPath() 
+    this.ctx.beginPath()
     this.ctx.lineCap = 'round'
     this.ctx.strokeStyle = '#EFCCCE'
     this.ctx.lineWidth = '40'
     this.ctx.arc(this.centerX, this.centerY, 105, -Math.PI / 2, -Math.PI / 2 + n * this.R, false)
     this.ctx.stroke()
-    const gradient = this.ctx.createLinearGradient(this.centerX, this.centerY, -Math.PI / 2, -Math.PI / 2 + n * this.R)
+    const gradient = this.ctx.createLinearGradient(this.centerX + 105, this.centerY + 105, this.centerX - 105, this.centerY - 105)
     gradient.addColorStop('0', 'yellow')
-    gradient.addColorStop('0.3', 'blue')
-    gradient.addColorStop('0.6', 'green')
+    gradient.addColorStop('0.3', 'green')
+    gradient.addColorStop('0.6', 'blue')
     gradient.addColorStop('1.0', 'red')
     this.ctx.strokeStyle = gradient
     this.ctx.lineWidth = '25'
@@ -94,13 +104,15 @@ class CircleCanvas {
     this.timmer = setInterval(() => {
       that.ctx.clearRect(0, 0, that.circle.width, that.circle.height)
       that.handleMotionCircle()
-      that.handleOuterCircle(that.speed)
-      that.handleText(that.speed)
-      if (that.speed > that.whole) {
+      that.handleOuterCircle(that.startP)
+      that.handleText(that.startP)
+      if (that.startP > that.endP) {
         clearInterval(that.timmer)
-        that.speed = 0
+
+        that.finished()
+
       }
-      that.speed += 0.1
+      that.startP += that.speed
     }, 50)
   }
 }
