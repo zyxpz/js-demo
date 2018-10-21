@@ -98,13 +98,13 @@ class Carousel {
             margin-right: 5px;
             font-size: ${this.attrs.pointSize};
           }
-          .selected-point-list {
+          .point-dom-true .selected-point-list {
             color: ${this.attrs.pointColor};
           }
         `
     } else {
-      styleEl.innerHTML = 
-      `
+      styleEl.innerHTML =
+        `
         .point-dom-false {
           position: absolute;
           top: 50%;
@@ -116,7 +116,7 @@ class Carousel {
           display: block;
           font-size: ${this.attrs.pointSize};
         }
-        .selected-point-list {
+        .point-dom-false .selected-point-list {
           color: ${this.attrs.pointColor};
         }
       `
@@ -167,21 +167,17 @@ class Carousel {
   }
 
   handleTouchEnd() {
-    if (this.attrs.horizontal) {
-      if (this.attrs.endPos !== '') {
-        if ((this.attrs.endPosX - this.attrs.startPosX) > 10) {
-          this.prev()
-        } else if ((this.attrs.endPosX - this.attrs.startPosX) < -10) {
-          this.next()
-        }
+    if (this.attrs.horizontal && this.attrs.endPos !== '') {
+      if ((this.attrs.endPosX - this.attrs.startPosX) > 10) {
+        this.prev()
+      } else if ((this.attrs.endPosX - this.attrs.startPosX) < -10) {
+        this.next()
       }
     } else {
-      if (this.attrs.endPos !== '') {
-        if ((this.attrs.endPos - this.attrs.startPos) > 10) {
-          this.prev()
-        } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
-          this.next()
-        }
+      if ((this.attrs.endPos - this.attrs.startPos) > 10) {
+        this.prev()
+      } else if ((this.attrs.endPos - this.attrs.startPos) < -10) {
+        this.next()
       }
     }
 
@@ -218,7 +214,7 @@ class Carousel {
   handlePoint(index) {
     if (index === -1) {
       index = this._mainLen - 1
-    } else if(index === this._mainLen) {
+    } else if (index === this._mainLen) {
       index = 0
     }
     this.pointList.forEach(e => {

@@ -28,7 +28,7 @@ class CircleCanvas {
 
     this.endP = opts.endP
 
-    this.finished = opts.finished || function loop() {}
+    this.finished = opts.finished || function loop() { }
 
     this.findEle()
   }
@@ -79,7 +79,7 @@ class CircleCanvas {
     this.ctx.save()
     this.ctx.beginPath()
     this.ctx.lineWidth = 40
-    this.ctx.strokeStyle = 'rgb(255,255,255,0.5)'
+    this.ctx.strokeStyle = 'rgba(255,255,255,0.5)'
     this.ctx.arc(this.centerX, this.centerY, 100, 0, Math.PI * 2, false)
     this.ctx.fillStyle = '#fff'
     this.ctx.fill()
