@@ -57,7 +57,9 @@ class Carousel {
       }
     });
 
-    this.handleMoveEventListener();
+    if (this.attrs.touch) {
+      this.handleMoveEventListener();
+    }
 
     if (this.attrs.play) {
       this.handlePlayer()
