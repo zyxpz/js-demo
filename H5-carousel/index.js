@@ -11,11 +11,12 @@ class Carousel {
       startPos: '', // 初始位置
       endPos: '', // 结束位置
       play: opts.play || false, // 自动播放
-      time: opts.time || 2000, // 播放时间 默认3000
+      time: opts.time || 2000, // 播放时间 默认2000
       horizontal: opts.horizontal || false, // 方向 默认横向
       point: opts.point || false,
       pointColor: opts.pointColor || 'blue',
-      pointSize: opts.pointSize || '6px'
+      pointSize: opts.pointSize || '6px',
+      touch: opts.touch || false,
     }
 
     this.index = 0;
@@ -145,10 +146,10 @@ class Carousel {
 
     this.attrs.endPos = ''
 
-    if (e.target.className !== this.attrs.main) {
-      this.index = e.target.parentNode.index
-    } else {
+    if (new RegExp(this.attrs.main).test(e.target.className)) {
       this.index = e.target.index
+    } else {
+      this.index = e.target.parentNode.index
     }
 
     clearInterval(this.interval)
